@@ -1,0 +1,131 @@
+{
+  "application_type": "Increase in Intake",
+  "code": "III",
+  "description": "Application for increasing sanctioned seat intake in existing approved programmes",
+  "cycle_year": "2026-2027",
+  "deadline_date": "2026-10-15T23:59:59Z",
+  "min_stamp_paper_value": 220,
+  "fuzzy_match_threshold": 85,
+  "required_documents": [
+    {
+      "code": "AFFIDAVIT_1",
+      "name": "Affidavit I (Rs. 220 Stamp Paper)",
+      "description": "Duly notarized Affidavit I on minimum Rs. 220 stamp paper regarding non-deviation from AICTE norms",
+      "required": true,
+      "min_stamp_value": 220,
+      "required_fields": ["institution_name", "permanent_id", "stamp_paper_value", "deponent_name", "date"]
+    },
+    {
+      "code": "AFFIDAVIT_2",
+      "name": "Affidavit II (Rs. 220 Stamp Paper)",
+      "description": "Affidavit II on Rs. 220 stamp paper regarding faculty appointments, faculty-student ratio, and pay scales",
+      "required": true,
+      "min_stamp_value": 220,
+      "required_fields": ["institution_name", "permanent_id", "stamp_paper_value", "date"]
+    },
+    {
+      "code": "UNIVERSITY_NOC",
+      "name": "NOC from Affiliating University (with Intake details)",
+      "description": "University NOC endorsing the proposed increase in intake capacity",
+      "required": true,
+      "mock_registry": "university_noc",
+      "required_fields": ["institution_name", "document_number", "issue_date", "expiry_date", "sanctioned_intake"]
+    },
+    {
+      "code": "FIRE_SAFETY_NOC",
+      "name": "Fire Safety NOC",
+      "description": "Valid Fire Safety NOC for expanded physical infrastructure and labs",
+      "required": true,
+      "mock_registry": "fire_noc",
+      "required_fields": ["institution_name", "document_number", "issue_date", "expiry_date"]
+    },
+    {
+      "code": "PREV_EOA",
+      "name": "Previous Year EoA Letter",
+      "description": "AICTE Extension of Approval letter for the academic year 2025-26 reflecting baseline intake",
+      "required": true,
+      "required_fields": ["institution_name", "permanent_id", "approved_intake"]
+    },
+    {
+      "code": "ACCREDITATION_CERT",
+      "name": "NBA / NAAC Accreditation Certificate",
+      "description": "Valid accreditation certificate for programmes seeking intake expansion",
+      "required": true,
+      "required_fields": ["institution_name", "accreditation_body", "grade_or_score", "valid_till"]
+    },
+    {
+      "code": "TRUST_RESOLUTION",
+      "name": "Trust/Society Resolution for Expansion",
+      "description": "Resolution of trust approving financial commitment and infrastructure for seat expansion",
+      "required": true,
+      "mock_registry": "trust_registry",
+      "required_fields": ["trust_name", "resolution_number", "resolution_date"]
+    }
+  ],
+  "cross_check_rules": [
+    {
+      "id": "RULE_INST_NAME_MATCH",
+      "name": "Institution Name Consistency",
+      "check": "match_institution_name",
+      "severity": "HIGH",
+      "description": "Institution name in documents must match application form within fuzzy match threshold"
+    },
+    {
+      "id": "RULE_PERM_ID_MATCH",
+      "name": "Permanent Institute ID Verification",
+      "check": "match_permanent_id",
+      "severity": "HIGH",
+      "description": "Permanent AICTE ID in documents must strictly match the applicant permanent ID"
+    },
+    {
+      "id": "RULE_INTAKE_CONSISTENCY",
+      "name": "Intake Capacity Cross-Check",
+      "check": "check_intake_consistency",
+      "severity": "HIGH",
+      "description": "Baseline intake in form must match Previous EoA; requested intake must not exceed permissible expansion norms"
+    },
+    {
+      "id": "RULE_STAMP_VAL",
+      "name": "Affidavit Stamp Paper Value",
+      "check": "check_stamp_paper_value",
+      "min_value": 220,
+      "severity": "HIGH",
+      "description": "Affidavit I & II must be executed on non-judicial stamp paper of at least Rs. 220 value"
+    },
+    {
+      "id": "RULE_VALIDITY_DATES",
+      "name": "Document Expiry & Validity Check",
+      "check": "check_expiry_dates",
+      "severity": "HIGH",
+      "description": "University NOC, Fire NOC, and Accreditation certificates must not be expired"
+    },
+    {
+      "id": "RULE_DEADLINE",
+      "name": "Cycle Submission Deadline Check",
+      "check": "check_deadline",
+      "severity": "MEDIUM",
+      "description": "Application must be submitted on or before the declared AICTE deadline"
+    },
+    {
+      "id": "RULE_ISSUER_CROSSCHECK",
+      "name": "Issuing Authority Registry Cross-Check",
+      "check": "verify_with_mock_issuer",
+      "severity": "HIGH",
+      "description": "Document numbers and status are cross-verified against Affiliating University and State Fire Dept registries"
+    },
+    {
+      "id": "RULE_ANOMALY_DUPLICATE_SHA",
+      "name": "Duplicate File Anomaly Detection",
+      "check": "detect_duplicate_sha",
+      "severity": "HIGH",
+      "description": "Detects if exact same document file was uploaded across different institutions or types"
+    },
+    {
+      "id": "RULE_ANOMALY_PDF_METADATA",
+      "name": "PDF Metadata Integrity Check",
+      "check": "check_pdf_metadata",
+      "severity": "MEDIUM",
+      "description": "Checks for suspicious PDF modification dates, timestamps after claimed issue date, or mismatched creation tools"
+    }
+  ]
+}
