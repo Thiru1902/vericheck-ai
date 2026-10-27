@@ -23,7 +23,7 @@ import {
   ChevronDown,
   ChevronUp
 } from "lucide-react";
-import api from "../services/api";
+import api, { API_BASE_URL } from "../services/api";
 
 export default function ApplicationDetail() {
   const { id } = useParams();
@@ -366,12 +366,12 @@ export default function ApplicationDetail() {
               {/* Embedded Document Frame */}
               <div className="border border-slate-200 rounded-xl overflow-hidden bg-slate-900 shadow-inner relative h-[480px]">
                 <iframe
-                  src={`http://localhost:8000${currentDoc.preview_url}`}
+                  src={`${API_BASE_URL}${currentDoc.preview_url}`}
                   className="w-full h-full"
                   title="Document Preview"
                 />
                 <a
-                  href={`http://localhost:8000${currentDoc.preview_url}`}
+                  href={`${API_BASE_URL}${currentDoc.preview_url}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute bottom-3 right-3 px-3 py-1.5 bg-slate-900/90 hover:bg-slate-900 text-white rounded-lg text-[11px] font-semibold flex items-center gap-1.5 shadow"

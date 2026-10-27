@@ -13,7 +13,7 @@ import {
   UploadCloud,
   FileCheck2
 } from "lucide-react";
-import api from "../services/api";
+import api, { API_BASE_URL } from "../services/api";
 
 export default function ApplicationView() {
   const { id } = useParams();
@@ -219,7 +219,7 @@ export default function ApplicationView() {
 
                   <div className="flex items-center gap-2">
                     <a
-                      href={`http://localhost:8000${doc.preview_url}`}
+                      href={`${API_BASE_URL}${doc.preview_url}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition"
